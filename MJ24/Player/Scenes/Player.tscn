@@ -49,15 +49,6 @@ to = NodePath("../../Idle")
 event = &"idle_entered"
 delay_in_seconds = "0.0"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="StateChartDebugger" parent="CanvasLayer" instance=ExtResource("7_w0hsn")]
-offset_top = 1.0
-offset_right = -398.0
-offset_bottom = -148.0
-initial_node_to_watch = NodePath("../../StateChart")
-
 [node name="GunPivot" type="Marker2D" parent="."]
 position = Vector2(7, 5)
 
@@ -68,6 +59,14 @@ texture = ExtResource("8_cvtax")
 
 [node name="ProjectileSpawn" type="Marker2D" parent="GunPivot/Sprite2D"]
 position = Vector2(5.33333, -1.33333)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StateChartDebugger" parent="CanvasLayer" instance=ExtResource("7_w0hsn")]
+offset_top = 1.0
+offset_right = -881.0
+offset_bottom = -427.0
+initial_node_to_watch = NodePath("../../StateChart")
 
 [connection signal="state_processing" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_processing"]
 [connection signal="state_processing" from="StateChart/CompoundState/Run" to="." method="_on_run_state_processing"]

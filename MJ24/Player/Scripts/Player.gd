@@ -30,9 +30,10 @@ func _physics_process(delta):
 	elif mouse_pos > 0:
 		sprite2D.flip_h = false
 		
+	# get fire input
 	if Input.is_action_just_pressed("Fire_Weapon"):
 		fire_weapon()
-	
+	# set projectile global rotation
 	gun_pivot.look_at(get_global_mouse_position())
 
 # STATES --------------------------
@@ -50,7 +51,7 @@ func _on_run_state_processing(delta): #On Run State Entered
 	move_and_slide()
 
 # Functions -----------------------
-
+# Spawn instance of projectile
 func fire_weapon():
 	var projectile_instance = projectile.instantiate()
 	get_parent().add_child(projectile_instance)
