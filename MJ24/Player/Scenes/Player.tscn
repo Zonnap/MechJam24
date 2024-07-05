@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://e7nyt8ryo5jl"]
+[gd_scene load_steps=10 format=3 uid="uid://e7nyt8ryo5jl"]
 
 [ext_resource type="Texture2D" uid="uid://bvb3m4r5mregx" path="res://Player/Resources/Player_Idle.png" id="1_3rd0k"]
 [ext_resource type="Script" path="res://Player/Scripts/Player.gd" id="1_7qxmi"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_rikiw"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_k7tnc"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_ucmko"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_kp5um"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="7_w0hsn"]
+[ext_resource type="Texture2D" uid="uid://djxsqgeijq5mu" path="res://Resources/PNG/Guns/Pistol.png" id="8_cvtax"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x4xe2"]
 radius = 9.0
@@ -17,3 +23,51 @@ texture = ExtResource("1_3rd0k")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 1)
 shape = SubResource("CapsuleShape2D_x4xe2")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_rikiw")
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("4_k7tnc")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_ucmko")
+
+[node name="ToRun" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("6_kp5um")
+to = NodePath("../../Run")
+event = &"movement_entered"
+delay_in_seconds = "0.0"
+
+[node name="Run" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_ucmko")
+
+[node name="ToIdle" type="Node" parent="StateChart/CompoundState/Run"]
+script = ExtResource("6_kp5um")
+to = NodePath("../../Idle")
+event = &"idle_entered"
+delay_in_seconds = "0.0"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="StateChartDebugger" parent="CanvasLayer" instance=ExtResource("7_w0hsn")]
+offset_top = 1.0
+offset_right = -398.0
+offset_bottom = -148.0
+initial_node_to_watch = NodePath("../../StateChart")
+
+[node name="GunPivot" type="Marker2D" parent="."]
+position = Vector2(7, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="GunPivot"]
+position = Vector2(4, -5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_cvtax")
+
+[node name="ProjectileSpawn" type="Marker2D" parent="GunPivot/Sprite2D"]
+position = Vector2(5.33333, -1.33333)
+
+[connection signal="state_processing" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/Run" to="." method="_on_run_state_processing"]
