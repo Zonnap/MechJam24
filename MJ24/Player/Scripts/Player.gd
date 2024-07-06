@@ -5,13 +5,17 @@ extends CharacterBody2D
 
 # on ready Variables -------------
 @onready var sprite2D = $Sprite2D
-@onready var gun_pivot = $GunPivot
+@onready var gun_pivot = $GunPivot_Right
 
 # Variables ----------------------
+# Stats
 var max_health = 100
 var health = 100
 var speed = 300.0
+
+# Singletons
 var direction = 0
+var mouse_pos = 0
 
 # Physics Process ----------------
 func _physics_process(delta):
@@ -22,17 +26,22 @@ func _physics_process(delta):
 		$StateChart.send_event("movement_entered") # sets player to run state
 	else:
 		$StateChart.send_event("idle_entered") # sets player to idle state
-	
-	# Flip player sprite according to mouse location
-	var mouse_pos = get_local_mouse_position().x
-	if mouse_pos < 0:
-		sprite2D.flip_h = true
-	elif mouse_pos > 0:
-		sprite2D.flip_h = false
 		
 	# get fire input
 	if Input.is_action_just_pressed("Fire_Weapon"):
 		fire_weapon()
+	
+	# Flip player and gun sprite according to mouse location
+	mouse_pos = get_local_mouse_position().x
+	if mouse_pos < 0:
+		sprite2D.flip_h = true
+		gun_pivot.position.x = -7
+		gun_pivot.scale.y = -1
+	elif mouse_pos > 0:
+		sprite2D.flip_h = false
+		gun_pivot.position.x = 7
+		gun_pivot.scale.y = 1
+		
 	# set projectile global rotation
 	gun_pivot.look_at(get_global_mouse_position())
 
@@ -55,4 +64,4 @@ func _on_run_state_processing(delta): #On Run State Entered
 func fire_weapon():
 	var projectile_instance = projectile.instantiate()
 	get_parent().add_child(projectile_instance)
-	projectile_instance.transform = $GunPivot/Sprite2D/ProjectileSpawn.global_transform
+	projectile_instance.transform = $GunPivot_Right/Sprite2D/ProjectileSpawn.global_transform

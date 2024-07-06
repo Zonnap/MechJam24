@@ -21,7 +21,9 @@ Global="*res://Main/Global_Scripts/Global.gd"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="viewport"
+mouse_cursor/custom_image="res://Resources/PNG/Crosshair/Crosshair.png"
 
 [editor_plugins]
 
