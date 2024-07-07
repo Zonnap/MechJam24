@@ -1,8 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://c55j4nvnkfh6p"]
+[gd_scene load_steps=4 format=3 uid="uid://c55j4nvnkfh6p"]
 
+[ext_resource type="PackedScene" uid="uid://bpmo3b0peclwr" path="res://Dungeon Rooms/Hubs/Basic Room 1/Scene/Basic_Room_1.tscn" id="1_hpf5s"]
 [ext_resource type="PackedScene" uid="uid://e7nyt8ryo5jl" path="res://Player/Scenes/Player.tscn" id="1_mfobj"]
+[ext_resource type="Texture2D" uid="uid://dxgkvq35nyt7x" path="res://Resources/Player.png" id="3_82t71"]
 
 [node name="Main" type="Node2D"]
 
+[node name="BasicRoom1" parent="." instance=ExtResource("1_hpf5s")]
+position = Vector2(224, 248)
+scale = Vector2(2, 2)
+
 [node name="Player" parent="." instance=ExtResource("1_mfobj")]
-position = Vector2(72, 125)
+position = Vector2(125, 248)
+
+[node name="Player2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(259, 250)
+scale = Vector2(2, 2)
+texture = ExtResource("3_82t71")
