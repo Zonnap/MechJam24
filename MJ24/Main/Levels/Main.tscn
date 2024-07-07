@@ -6,6 +6,3 @@
 
 [node name="Player" parent="." instance=ExtResource("1_6wuyu")]
 position = Vector2(586, 307)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0

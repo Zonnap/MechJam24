@@ -35,11 +35,11 @@ func _physics_process(delta):
 	mouse_pos = get_local_mouse_position().x
 	if mouse_pos < 0:
 		sprite2D.flip_h = true
-		gun_pivot.position.x = -7
+		gun_pivot.position.x = -3
 		gun_pivot.scale.y = -1
 	elif mouse_pos > 0:
 		sprite2D.flip_h = false
-		gun_pivot.position.x = 7
+		gun_pivot.position.x = 3
 		gun_pivot.scale.y = 1
 		
 	# set projectile global rotation
