@@ -45,6 +45,12 @@ to = NodePath("../../Run")
 event = &"movement_entered"
 delay_in_seconds = "0.0"
 
+[node name="ToDeath" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("6_kp5um")
+to = NodePath("../../Death")
+event = &"death_entered"
+delay_in_seconds = "0.0"
+
 [node name="Run" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("5_ucmko")
 
@@ -53,6 +59,15 @@ script = ExtResource("6_kp5um")
 to = NodePath("../../Idle")
 event = &"idle_entered"
 delay_in_seconds = "0.0"
+
+[node name="ToDeath" type="Node" parent="StateChart/CompoundState/Run"]
+script = ExtResource("6_kp5um")
+to = NodePath("../../Death")
+event = &"death_entered"
+delay_in_seconds = "0.0"
+
+[node name="Death" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_ucmko")
 
 [node name="GunPivot_Right" type="Marker2D" parent="."]
 position = Vector2(4, 3)
@@ -84,3 +99,4 @@ texture = ExtResource("9_20yid")
 
 [connection signal="state_processing" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_processing"]
 [connection signal="state_processing" from="StateChart/CompoundState/Run" to="." method="_on_run_state_processing"]
+[connection signal="state_processing" from="StateChart/CompoundState/Death" to="." method="_on_death_state_processing"]

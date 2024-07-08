@@ -12,10 +12,19 @@ extends CharacterBody2D
 var max_health = 100
 var health = 100
 var speed = 300.0
-
+var is_alive = true
 # Singletons
 var direction = 0
 var mouse_pos = 0
+
+func _process(_delta):
+	
+	# Health Check
+	if health <= 0 and is_alive == true:
+		$StateChart.send_event("death_entered")
+
+	if Input.is_action_just_pressed("ui_accept"):
+		health = 0
 
 # Physics Process ----------------
 func _physics_process(delta):
@@ -58,7 +67,11 @@ func _on_run_state_processing(delta): #On Run State Entered
 	velocity = direction * speed #change Speed
 	
 	move_and_slide()
-
+	
+#Death State
+func _on_death_state_processing(delta):
+	get_tree().change_scene_to_file("res://Main/Levels/Menus/DeathScreen.tscn")
+	
 # Functions -----------------------
 # Spawn instance of projectile
 func fire_weapon():
