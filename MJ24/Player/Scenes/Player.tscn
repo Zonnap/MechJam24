@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://e7nyt8ryo5jl"]
+[gd_scene load_steps=12 format=3 uid="uid://e7nyt8ryo5jl"]
 
 [ext_resource type="Texture2D" uid="uid://bvb3m4r5mregx" path="res://Player/Resources/Player_Idle.png" id="1_3rd0k"]
 [ext_resource type="Script" path="res://Player/Scripts/Player.gd" id="1_7qxmi"]
@@ -8,11 +8,12 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_kp5um"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="7_w0hsn"]
 [ext_resource type="Texture2D" uid="uid://djxsqgeijq5mu" path="res://Resources/PNG/Guns/Pistol.png" id="8_cvtax"]
-[ext_resource type="Texture2D" uid="uid://dkqivxlkpcrkr" path="res://Resources/PNG/HUD/Overlay.png" id="9_20yid"]
+[ext_resource type="Script" path="res://Player/Scripts/HealthCounter.gd" id="9_pfwbu"]
+[ext_resource type="Script" path="res://Player/Scripts/AmmoCounter.gd" id="10_d3mvt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x4xe2"]
-radius = 9.0
-height = 32.0
+radius = 5.0
+height = 16.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_7qxmi")
@@ -79,6 +80,10 @@ texture = ExtResource("8_cvtax")
 [node name="ProjectileSpawn" type="Marker2D" parent="GunPivot_Right/Sprite2D"]
 position = Vector2(5.33333, -1.33333)
 
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
 
@@ -92,11 +97,32 @@ initial_node_to_watch = NodePath("../../StateChart")
 
 [node name="HUDLayer" type="CanvasLayer" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="HUDLayer"]
-offset_right = 1280.0
-offset_bottom = 720.0
-texture = ExtResource("9_20yid")
+[node name="GridContainer" type="GridContainer" parent="HUDLayer"]
+offset_left = 37.0
+offset_top = 37.0
+offset_right = 88.0
+offset_bottom = 77.0
+columns = 2
+
+[node name="HealthLabel" type="Label" parent="HUDLayer/GridContainer"]
+layout_mode = 2
+text = "Health"
+
+[node name="HealthCounter" type="Label" parent="HUDLayer/GridContainer"]
+layout_mode = 2
+text = "0"
+script = ExtResource("9_pfwbu")
+
+[node name="AmmoLabel" type="Label" parent="HUDLayer/GridContainer"]
+layout_mode = 2
+text = "Ammo"
+
+[node name="AmmoCounter" type="Label" parent="HUDLayer/GridContainer"]
+layout_mode = 2
+text = "0"
+script = ExtResource("10_d3mvt")
 
 [connection signal="state_processing" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_processing"]
 [connection signal="state_processing" from="StateChart/CompoundState/Run" to="." method="_on_run_state_processing"]
 [connection signal="state_processing" from="StateChart/CompoundState/Death" to="." method="_on_death_state_processing"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

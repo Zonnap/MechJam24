@@ -6,13 +6,18 @@ extends CharacterBody2D
 # on ready Variables -------------
 @onready var sprite2D = $Sprite2D
 @onready var gun_pivot = $GunPivot_Right
+@onready var reload_timer = $ReloadTimer
 
 # Variables ----------------------
 # Stats
+var is_alive = true
 var max_health = 100
 var health = 100
 var speed = 300.0
-var is_alive = true
+var reloading = false
+var max_ammo = 10
+var ammo = 10
+
 # Singletons
 var direction = 0
 var mouse_pos = 0
@@ -21,13 +26,21 @@ func _process(_delta):
 	
 	# Health Check
 	if health <= 0 and is_alive == true:
-		$StateChart.send_event("death_entered")
+		$StateChart.send_event("death_entered") #enters death state
 
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept"): # THIS IS JUST FOR TESTING!!!!!!
 		health = 0
 
+	# get fire input and check ammo
+	if Input.is_action_just_pressed("Fire_Weapon") and ammo > 0:
+		fire_weapon()
+	
+	if Input.is_action_just_pressed("Fire_Weapon") and ammo <= 0 and reloading == false:
+		reload_weapon()
+		print("RELOADING")
+		
 # Physics Process ----------------
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	# Get the input direction and set states accordingly
 	direction = Input.get_vector("Left", "Right", "Up", "Down")
@@ -35,10 +48,6 @@ func _physics_process(delta):
 		$StateChart.send_event("movement_entered") # sets player to run state
 	else:
 		$StateChart.send_event("idle_entered") # sets player to idle state
-		
-	# get fire input
-	if Input.is_action_just_pressed("Fire_Weapon"):
-		fire_weapon()
 	
 	# Flip player and gun sprite according to mouse location
 	mouse_pos = get_local_mouse_position().x
@@ -56,25 +65,35 @@ func _physics_process(delta):
 
 # STATES --------------------------
 # Idle State
-func _on_idle_state_processing(delta): # on Idle State Entered
+func _on_idle_state_processing(_delta): # on Idle State Entered
 	velocity.x = move_toward(velocity.x, 0, speed) #Speed set to 0 for X
 	velocity.y = move_toward(velocity.y, 0, speed) #Speed set to 0 for Y
 	
 	move_and_slide()
 	
 # Run State
-func _on_run_state_processing(delta): #On Run State Entered
+func _on_run_state_processing(_delta): #On Run State Entered
 	velocity = direction * speed #change Speed
 	
 	move_and_slide()
 	
 #Death State
-func _on_death_state_processing(delta):
+func _on_death_state_processing(_delta):
+	is_alive = false
 	get_tree().change_scene_to_file("res://Main/Levels/Menus/DeathScreen.tscn")
-	
+
 # Functions -----------------------
 # Spawn instance of projectile
 func fire_weapon():
+	ammo = ammo - 1
 	var projectile_instance = projectile.instantiate()
 	get_parent().add_child(projectile_instance)
 	projectile_instance.transform = $GunPivot_Right/Sprite2D/ProjectileSpawn.global_transform
+
+func reload_weapon():
+	reloading = true
+	reload_timer.start()
+
+func _on_reload_timer_timeout():
+	ammo = max_ammo
+	reloading = false
