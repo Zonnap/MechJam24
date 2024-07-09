@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://d3crdj521cfqk"]
+
+[ext_resource type="Texture2D" uid="uid://dsqar2xcpamm8" path="res://Dungeon Rooms/Resources/Images/GlowingTile.png" id="1_xwfk7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jiejw"]
+atlas = ExtResource("1_xwfk7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnjvi"]
+atlas = ExtResource("1_xwfk7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nucsf"]
+atlas = ExtResource("1_xwfk7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjlsv"]
+atlas = ExtResource("1_xwfk7")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8flw"]
+atlas = ExtResource("1_xwfk7")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pswvy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jiejw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnjvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nucsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjlsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8flw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjlsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nucsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnjvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jiejw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="GlowingTile" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_pswvy")
+autoplay = "default"
+frame_progress = 0.0951568

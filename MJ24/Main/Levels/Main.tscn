@@ -1,11 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://c55j4nvnkfh6p"]
+[gd_scene load_steps=5 format=3 uid="uid://c55j4nvnkfh6p"]
 
 [ext_resource type="PackedScene" uid="uid://e7nyt8ryo5jl" path="res://Player/Scenes/Player.tscn" id="1_6wuyu"]
+[ext_resource type="PackedScene" uid="uid://bpmo3b0peclwr" path="res://Dungeon Rooms/Hubs/Basic Room 1/Scene/Basic_Room_1.tscn" id="1_fcjlg"]
+[ext_resource type="PackedScene" uid="uid://c2qqsilq8ma7f" path="res://Enemies/Scenes/Enemy_Dummy.tscn" id="2_10xyh"]
+[ext_resource type="PackedScene" uid="uid://dgmnfburuay2v" path="res://Enemies/Scenes/Enemy_Basic_1.tscn" id="4_n14mi"]
 
 [node name="Main" type="Node2D"]
 
+[node name="BasicRoom1" parent="." instance=ExtResource("1_fcjlg")]
+z_index = -1
+position = Vector2(709, 351)
+
+[node name="EnemyDummy" parent="." instance=ExtResource("2_10xyh")]
+position = Vector2(675, 383)
+
 [node name="Player" parent="." instance=ExtResource("1_6wuyu")]
-position = Vector2(586, 307)
+position = Vector2(711, 474)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
+
+[node name="EnemyBasic1" parent="." instance=ExtResource("4_n14mi")]
+position = Vector2(806, 382)

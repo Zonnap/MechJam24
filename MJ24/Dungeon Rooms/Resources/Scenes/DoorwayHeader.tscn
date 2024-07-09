@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfnjyr0j6a2dk"]
+
+[ext_resource type="Texture2D" uid="uid://begduwb8w8j0s" path="res://Dungeon Rooms/Resources/Images/DoorHeader.png" id="1_xdnf5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cook4"]
+atlas = ExtResource("1_xdnf5")
+region = Rect2(0, 6, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpkyt"]
+atlas = ExtResource("1_xdnf5")
+region = Rect2(32, 6, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pcix"]
+atlas = ExtResource("1_xdnf5")
+region = Rect2(64, 6, 32, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t0huf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cook4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jpkyt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pcix")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="DoorwayHeader" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_t0huf")
+frame = 2
+frame_progress = 1.0

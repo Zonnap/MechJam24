@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://rk8blnuhlciq"]
+
+[ext_resource type="Texture2D" uid="uid://x8k6exndpti2" path="res://Enemies/Resources/Bullet.png" id="1_udu6l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp6bs"]
+atlas = ExtResource("1_udu6l")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwnhv"]
+atlas = ExtResource("1_udu6l")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5r8v"]
+atlas = ExtResource("1_udu6l")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_45o1s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lp6bs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwnhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5r8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwnhv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Projectile" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_45o1s")
+frame_progress = 0.094433

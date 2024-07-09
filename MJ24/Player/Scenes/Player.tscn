@@ -12,7 +12,7 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x4xe2"]
 radius = 9.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_7qxmi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,0 +1,135 @@
+[gd_scene load_steps=19 format=3 uid="uid://dgmnfburuay2v"]
+
+[ext_resource type="Script" path="res://Enemies/Scripts/Glitch_Enemy.gd" id="1_1nafk"]
+[ext_resource type="Texture2D" uid="uid://whc2cicnj1tk" path="res://Enemies/Resources/Enemy_Basic.png" id="1_lgpm5"]
+[ext_resource type="Script" path="res://Enemies/Scripts/State Machine.gd" id="3_d3hpt"]
+[ext_resource type="Script" path="res://Enemies/States/GlitchIdle.gd" id="4_qbbpn"]
+[ext_resource type="Script" path="res://Enemies/States/GlitchFollow.gd" id="5_s81pq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1xgi"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxp6m"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1oc68"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuklo"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3my6"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssl60"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5oa4"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oimtl"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pms8"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_px5q8"]
+atlas = ExtResource("1_lgpm5")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4ifa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1xgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxp6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1oc68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vuklo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3my6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssl60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5oa4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3my6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oimtl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1oc68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxp6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pms8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_px5q8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxp6m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_80hqx"]
+radius = 6.0
+height = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_psbhn"]
+radius = 87.023
+
+[node name="Glitch" type="CharacterBody2D"]
+script = ExtResource("1_1nafk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_g4ifa")
+autoplay = "default"
+frame_progress = 0.277454
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_80hqx")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_psbhn")
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_d3hpt")
+initial_state = NodePath("GlitchFollow")
+
+[node name="GlitchIdle" type="Node" parent="State Machine" node_paths=PackedStringArray("Enemy")]
+script = ExtResource("4_qbbpn")
+Enemy = NodePath("../..")
+
+[node name="GlitchFollow" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_s81pq")
+enemy = NodePath("../..")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

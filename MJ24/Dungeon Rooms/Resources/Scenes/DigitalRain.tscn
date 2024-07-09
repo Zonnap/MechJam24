@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://docuyxqs7bskr"]
+
+[ext_resource type="Texture2D" uid="uid://b5x1mqgxo160o" path="res://Dungeon Rooms/Resources/Images/DigitalRain.png" id="1_3xtfm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svbo8"]
+atlas = ExtResource("1_3xtfm")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu3fu"]
+atlas = ExtResource("1_3xtfm")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdkmr"]
+atlas = ExtResource("1_3xtfm")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rrsv"]
+atlas = ExtResource("1_3xtfm")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oyggv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svbo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu3fu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdkmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rrsv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="DigitalRain" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_oyggv")
+autoplay = "default"
+frame_progress = 0.171735

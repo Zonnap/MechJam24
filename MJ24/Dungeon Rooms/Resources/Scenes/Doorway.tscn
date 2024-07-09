@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://dtkv37aqcvekm"]
+
+[ext_resource type="Texture2D" uid="uid://wwuo60364tnv" path="res://Dungeon Rooms/Resources/Images/Door.png" id="1_pnisl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4s0m"]
+atlas = ExtResource("1_pnisl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36i57"]
+atlas = ExtResource("1_pnisl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltyad"]
+atlas = ExtResource("1_pnisl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nul23"]
+atlas = ExtResource("1_pnisl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r64jm"]
+atlas = ExtResource("1_pnisl")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71ywo"]
+atlas = ExtResource("1_pnisl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j6l0f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4s0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36i57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ltyad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nul23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r64jm")
+}],
+"loop": false,
+"name": &"DoorOpen",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71ywo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Doorway" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_j6l0f")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2qqsilq8ma7f"]
+
+[ext_resource type="Texture2D" uid="uid://dxgkvq35nyt7x" path="res://Player/Resources/Player.png" id="1_df2dx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wqh12"]
+radius = 6.0
+height = 20.0
+
+[node name="EnemyDummy" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_df2dx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_wqh12")

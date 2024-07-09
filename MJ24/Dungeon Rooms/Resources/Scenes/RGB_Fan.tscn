@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://bupfvr66odvox"]
+
+[ext_resource type="Texture2D" uid="uid://dp8g8w85n0sfm" path="res://Dungeon Rooms/Resources/Images/Terrain_Sheet.png" id="1_43uk7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdnxp"]
+atlas = ExtResource("1_43uk7")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht42g"]
+atlas = ExtResource("1_43uk7")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v5q07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdnxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht42g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdnxp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="RgbFan" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_v5q07")
+autoplay = "default"
+frame_progress = 0.539824
